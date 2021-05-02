@@ -1,0 +1,11 @@
+.tooltip--bottom, .tooltip--left, .tooltip--right, .tooltip--top {
+    display: none;
+}
+
+.palette-options{
+    display: none;
+}
+
+.palette-options{
+    background: crimson;
+}

@@ -1,0 +1,60 @@
+<!-- Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT License. -->
+<!-- This file shows how to design a first-run page that provides a welcome screen to the user about the features of the add-in. -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nuevo complemento para Office</title>
+
+    <!-- Office JavaScript API -->
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
+
+    <!-- For more information on Office UI Fabric, visit https://developer.microsoft.com/fabric. -->
+    <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
+        rel="stylesheet"> 
+    <!-- Template styles -->
+    <link href="taskpane.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <header class="MF-header">
+        <img src="../../assets/img/logo-mi-firma.svg"  class="center"  alt="MiFirma" title="MiFirma"/>
+    </header>
+
+    <section id="sideload-msg" class="ms-welcome__main">
+        <p>El complemento no ha sido cargado correctamente </p>
+    </section>
+
+    <main id="app-body" style="display: none;">
+        <div class="MF-content">
+            <p style="text-align: center;">Bienvenido a una <strong>nueva</strong> forma de <span class = "MF-highlight">firmar documentos</span></p >
+            <div style="padding-top: 15px;">
+                <a href="https://mifirmapru.olimpiait.com:6570/registro" target="blank">
+                <button id="newAccount"class="MF-button">Crear Cuenta</button>
+                </a>
+            </div>
+            <div style="padding-top: 15px;">
+                <button id="run" class="MF-button2">Iniciar Sesión</button>
+            </div>
+            <div style="padding-top: 15px;">
+                <hr class="solid">
+            </div>
+            
+            <p class="MF-small">Ingresar con una cuenta de Office 365</p>                   
+            <div style="padding-top: 15px;">
+                <button id="getGraphDataButton" class="MF-button3"><img src="../../assets/img/Office_365.svg" style="height: 25px;"></button></a>
+            </div>
+            <div class="user-picture-box"></div>
+            
+
+        </div>        
+    </main>
+    <footer class="MF-footer"></footer>
+</body>
+
+</html>

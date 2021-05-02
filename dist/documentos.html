@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MiFirma para Word</title>
+    <meta name="msapplication-TileColor" content="#004453">
+    <meta name="theme-color" content="#004453">
+    <meta name="msapplication-TileImage" content="../../assets/img/favicon/favicon-128x128.ico">
+    <link rel="icon" type="image/x-icon" sizes="128x128" href="../../assets/img/favicon/favicon-128x128.ico">
+    <link rel="icon" type="image/x-icon" sizes="64x64" href="../../assets/img/favicon/favicon-64x64.ico">
+    <link rel="icon" type="image/x-icon" sizes="32x32" href="../../assets/img/favicon/favicon-32x32.ico">
+    <link rel="icon" type="image/x-icon" sizes="48x48" href="../../assets/img/favicon/favicon-48x48.ico">
+    <link rel="icon" type="image/x-icon" sizes="16x16" href="../../assets/img/favicon/favicon-16x16.ico">    
+</head>
+
+    <style>
+		.global {
+            position:fixed; 
+            top:0; 
+            left:0; 
+            bottom:0;
+            right:0; 
+            width:100%;
+            height:100%; 
+            border:none; 
+            margin:0; 
+            padding:0; 
+            overflow:hidden; 
+            z-index:999999;
+			width: 100%;
+			height: 100%;
+		}
+
+        body {
+            margin: 0;
+        }
+	</style>
+
+<body>
+<script src="polyfill.js"></script><script src="app.js"></script></body>
+<script>
+    localStorage.setItem('loaded', 'false');
+    var myframe = document.createElement('iframe');
+    myframe.classList.add("global");
+    myframe.onload = function() {
+        if(localStorage.getItem('loaded') == 'false'){
+        const data = localStorage.getItem('word-document1');
+        const iframe = myframe.contentWindow;
+        iframe.postMessage({
+        action: 'save',
+        key: 'token',
+        value: localStorage.getItem('token')
+        }, '*');  
+        iframe.postMessage({
+        action: 'save',
+        key: 'word-document1',
+        value: data
+        }, '*');              
+        iframe.postMessage({
+        action: 'save',
+        key: 'word-document-name1',
+        value: localStorage.getItem('word-document-name1')
+        }, '*');
+        iframe.postMessage({
+        action: 'save',
+        key: 'personaNombre',
+        value: localStorage.getItem('personaNombre')
+        }, '*');
+        iframe.postMessage({
+        action: 'save',
+        key: 'correo',
+        value: localStorage.getItem('correo')
+        }, '*');
+        iframe.postMessage({
+        action: 'save',
+        key: 'phoneUser',
+        value: localStorage.getItem('phoneUser')
+        }, '*');
+        iframe.postMessage({
+        action: 'save',
+        key: 'refresh',
+        value: 'refresh'
+        }, '*');
+        localStorage.setItem('loaded','true');
+    }
+    }
+    myframe.src = 'https://mifirmapru.olimpiait.com:6570/main/documentos';
+    //myframe.src = 'http://localhost:4200/main/documentos';
+    document.body.appendChild(myframe);
+    console.log("Ready");
+
+    
+</script>
+</html>

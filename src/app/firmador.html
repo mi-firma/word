@@ -1,0 +1,376 @@
+<!-- Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT License. -->
+<!-- This file shows how to design a first-run page that provides a welcome screen to the user about the features of the add-in. -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="msapplication-TileImage" content="../../assets/img/favicon/favicon-128x128.ico">
+    
+    <!--<script src="./attention.js"></script>-->
+    <link rel="icon" type="image/x-icon" sizes="128x128" href="../../assets/img/favicon/favicon-128x128.ico">
+    <link rel="icon" type="image/x-icon" sizes="64x64" href="../../assets/img/favicon/favicon-64x64.ico">
+    <link rel="icon" type="image/x-icon" sizes="32x32" href="../../assets/img/favicon/favicon-32x32.ico">
+    <link rel="icon" type="image/x-icon" sizes="48x48" href="../../assets/img/favicon/favicon-48x48.ico">
+    <link rel="icon" type="image/x-icon" sizes="16x16" href="../../assets/img/favicon/favicon-16x16.ico">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Great+Vibes">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--FONTS PARA LA FIRMA-->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Great+Vibes&family=Sofia&display=swap" rel="stylesheet">
+    <title>MiFirma Add-in :: Firmador</title>
+
+    <!-- Office JavaScript API -->
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <!-- For more information on Office UI Fabric, visit https://developer.microsoft.com/fabric. -->
+    <link rel="stylesheet"
+        href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css" />
+
+    <!-- Template styles -->
+    <link href="firmador.css" rel="stylesheet" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+</head>
+
+<body>
+    <div class="MF-overlay" id="overlay"></div>
+    <div id="MFSidepanel" class="MF-sidepanel">
+        <div class="MF-center MF-tall"><a href="#"><img src="../../assets/img/logo-mi-firma.svg" class ="MF-logo" alt="MiFirma" title="MiFirma" /> </a></div>
+        <div class="MF-menu"><img src="../../assets/img/icons/icon-signature-doc.svg"><span>Firmar</span></div>
+        <div id ="personal-folder" class="MF-menu"><img src="../../assets/img/icons/icon-my-folder.svg"><span>Mi Carpeta Personal</span></div>
+        <div id ="customize-signature" class="MF-menu"><img src="../../assets/img/icons/browser.svg"><span>Personalizar Firma</span> </div>
+    </div>
+
+    <div class="cargador-screen" id="load-banner">
+        <div class="cargador-screen-icon"></div>
+    </div>
+    <main id="app-body" class="ms-welcome__main">
+        <!--Navbar sits on top-->
+        <div id="topnav" class="MF-topnav" style="z-index: -1000;">
+            <div>
+                <span class="MF-side" id="side-menu"><img src="../../assets/img/icons/menu.svg"></span> 
+                <img src="../../assets/img/logo-mi-firma.svg" class ="MF-logo" alt="MiFirma" title="MiFirma" />   
+                <span id="signer-name" class="MF-signer"></span> 
+                <span id="signer-enter"class="MF-signerEnter">Ultimo ingreso: 04/03/2021 - <span id="document-tipoFlujo">???</span></span>               
+                <img id="user-options" src="../../assets/down-arrow.svg" class="MF-signerOptions"  alt="Opciones" title="Opciones"/>
+                <span class="MF-settings"><a href="https://ayuda.olimpiait.com/es/mi-firma" target="blank"><img src="../../assets/info.png"></a><span ><img src="../../assets/alert.png"></span></span>
+                <span id="user-alerts" class="MF-signerAlerts">0</span>
+            </div>
+        </div>
+        <!--/Navbar sits on top-->
+        <!--Side menu for notifications-->
+        <div id="MFSidealerts" class="MF-sidealerts">
+            <div class="MF-menu-alert"><h2>Notificaciones</h2><hr class="solid"></div>
+            <div class="MF-hr"> </div>
+            <div class="MF-menu-alert"><span>No new notifications</span></div>
+        </div>
+        <!--/Side menu for notifications-->
+        <!-- Users dropdown menu -->
+        <div id = "MFUsermenu" class="MF-usermenu">
+            <div id="app-profile" class="MF-menu-item"><img src ="../../assets/img/icons/icon-perfil.svg"> <span>Perfil</span></div>
+            <div class="MF-hr"> </div>
+            <div id="app-config" class="MF-menu-item"><img src ="../../assets/img/icons/icon-config.svg"><span>Configuración</span></div>
+            <div id="app-terms" class="MF-menu-item"><img src ="../../assets/img/icons/terms.svg"><span>Términos y Condiciones</span></div>
+            <div id="app-policy" class="MF-menu-item"><img src ="../../assets/img/icons/privacy.svg"><span>Politica de privacidad</span></div>
+            <div id="app-logout" class="MF-menu-item"><img src ="../../assets/img/icons/icon-logout.svg"><span>Cerrar sesión</span></div>
+        </div>
+        <!-- /Users dropdown menu -->
+
+        <div>
+        <!--vanilla app starts-->
+        <section class="app">
+        <!-- Start Screen -->    
+        <div id="start" class="MF-screen MF-start">
+            <div class="MF-inner-start">
+                <h2>¿Quién más debe firmar este documento<span style="font-family: 'Great Vibes';">?</span></h2>
+                
+                <img src="../../assets/img/icons/icon-trash.svg" style="display: none;">
+                <img src="../../assets/img/move.svg" style="display: none;">
+                <img src="../../assets/img/loader.mifirma.svg" style="display: none;">
+                <div id="onlyMe" class="MF-third MF-selected"><input type="hidden" value="1"><img class="MF-image-on" src="../../assets/onlyme.png"><img src="../../assets/onlyme-inactive.png" class="MF-image-off MF-hidden"><span>Solo yo</span></div>
+                <div id="othersAndMe" class="MF-third"><input type="hidden" value="2"><img class="MF-image-on  MF-hidden" src="../../assets/others-and-me.png"><img src="../../assets/others-and-me-inactive.png" class="MF-image-off"><span>Otros y yo</span></div>
+                <div id="others" class="MF-third"><input type="hidden" value="3"><img class="MF-image-on  MF-hidden" src="../../assets/others.png" ><img class="MF-image-off" src="../../assets/others-inactive.png" ><span>Otros</span></div>
+                    <div id="signerData" class="MF-signerData">
+                             <section class="app__input">
+                                
+                                <div class="MF-signerHeader">
+                                    <span class= "MF-instruction"><h2>Agrega los otros firmantes</h2></span>    
+                                    <span>&nbsp;</span>
+                                    <div id="switch-sign-order" class="MF-switch">
+            
+                                        <label class="cl-switch">
+                                            <span class="MF-toggle active" id="select-sign-order">Firmar en Cualquier Orden</span>
+                                            <input id="sign-order" type="checkbox">
+                                            <span class="switcher" style="width: 30px;"></span>
+                                            <span class="MF-toggle">Firmar en orden</span>
+                                          </label>
+                                        </div>
+                                </div>
+                                <div class="MF-signersBody">
+                                    <form class="[ new-item ] [ boilerform ] [ js-form ]">
+                                        <div class="boilerform">
+                                            <!-- Form styles from the https://boilerform.design boilerplate -->
+                                            <input type="text" class="[ new-item__details ] [ c-input-field ]" id="new-item-field" placeholder="Nombre" autocomplete="off" />
+                                            <input type="email" class="[ new-item__details ] [ c-input-field ]" id="new-email-field" placeholder="Correo" autocomplete="off" />
+                                            <button class="[ c-button ] [ new-item__button ]"><img class="MF-imgLink" src="../../assets/img/icons/icon-plus.svg">   Agregar firmante</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <form id="other-signers" novalidate>
+                                <div class="js-items" aria-live="assertive" aria-label="Datos del Firmante"></div>
+                            </section>
+                            <!--<aside>-->
+                                <p class="visually-hidden">Este documento llevará <span class="js-status">y firmantes</span> aparte de usted.</p>
+                            <div class="[ js-count ]" aria-hidden="true">
+                                <small>Este documento lleva</small>
+                                <span>0</span>
+                                <small>firmantes, sin usted 😢</small>
+                            </div>
+                            <!--</aside>-->
+                                            
+                    </div>    
+                                
+                    <div class="MF-startFooter">
+                        
+                        <input type="submit" class="MF-button2" value="Continuar">
+                        </form>
+        
+                    </div>
+            </div>
+        </div>
+        <!-- /Start Screen --> 
+        <!--Signature Screen-->
+        <div id="modal-signature" class="MF-signature">
+            <div class="MF-inner-signature">
+                <div class="tab">
+                    <button class="tablinks" onclick="openTab(event, 'Escribir')">ESCRIBIR FIRMA</button>
+                    <button class="tablinks" onclick="openTab(event, 'Dibujar')">DIBUJAR FIRMA</button>
+                    <button class="tablinks" onclick="openTab(event, 'Subir')" id="defaultOpen">SUBIR FIRMA</button>
+                </div>
+                <form class="my-form" id="signature-upload">
+                <div id="Escribir" class="tabcontent">
+                    <div class="grid-container">
+                        <div class="item1">
+                        <canvas id="myCanvas" width="500" height="150"
+                                          style="border:1px solid #d3d3d3;">
+                                          Your browser does not support the canvas element.
+                                          </canvas>
+                                          
+                                          
+                        </div>
+                        <div class="item2"><input type="text" id="signature-text"></div>
+                        <div class="item3">
+                            <span id="download">Fuente:</span>
+                            <select id="signature-font">
+                                <option value="Fuente1" style="font-family: 'Great Vibes';">Great Vibes</option>
+                                <option value="Fuente2" style="font-family: 'Sophia';">Sophia</option>
+                                <option value="Fuente3" style="font-family: 'Roboto';">Roboto</option>
+                                <option value="Fuente4" style="font-family: 'Dancing Script';">Dancing Script</option>
+                            </select>
+                        </div>  
+                      </div>
+                </div>
+                  
+                <div id="Dibujar" class="tabcontent">
+                    <div class="grid-container">
+                        <div class="item1">
+                      <canvas id="my-Canvas" width="500" height="150"
+                      style="border:1px solid #d3d3d3;">
+                      Your browser does not support the canvas element.
+                      </canvas>
+                      </div>
+                      <div class="item2">&nbsp;</div>
+                      <div class="item3"><label id='erase' class="MF-button3">Borrar</label></div>
+                      
+                      </div> 
+                </div>
+                
+                <div id="Subir" class="tabcontent">
+                    <p style="text-align: left; padding-top: 30px; padding-left: 60px; font-size: 14px;">Solo se permiten archivos PNG y JPG</p>
+                    <div id="drop-area" class="MF-drop">                
+                    <input type="file" id="fileElem" multiple accept="image/*"  >
+                        <div id="gallery"></div>
+                    </div>
+                </div>
+                <input type="submit" class="MF-button3" value="Guardar" >
+                </form>
+            </div>            
+        </div>
+        <!--Signature Screen-->
+
+        <!-- Ending Screen -->    
+        <div id="success" class="MF-screen">
+            <div class="MF-inner-screen">
+                <img src="../../assets/correct.svg">
+                <p class="MF-title">¡Documento firmado!</p>
+                <p>Gracias por usar Mi Firma</p>
+                <p>Una vez  todos los firmantes hayan terminado, recibirás un correo electrónico con una copia del documento</p>
+                <button class="MF-button2" onClick="javascript:window.close('','_parent','');">Finalizar</button>
+                <button id="finished-next-step" class="MF-button2">Abrir Mi Carpeta Personal</button>
+            </div>
+        </div>
+        <!-- Ending Screen --> 
+        <div class="file__content fir-content">
+            
+            <!--<button class="signer__mobile__button" (click)="toggleSignerMenu()">
+                <span class="icon icon-more"></span> Seleccionar firmantes
+            </button>-->
+
+            <div id="tools-menu"  class="signer__menu">
+                <div class="selected__signers">
+                    <div class="signers__header d-flex">
+                        <h4 class="header__subtitle--pdftron">Elige un firmante: &nbsp; <img src="../../assets/information-button.svg" alt="Selecciona el nombre de la persona que va a firmar este documento"></h4>
+                        
+                    </div>
+
+                    <div class="signer__options" id="sign-pattern">
+                        <div class="MF-Firmante">
+                            <aside>                        
+                                <div class="[ js-signerSelect ]" aria-hidden="true">
+                                    <select id="signer-item" class="MF-signerPattern"> <!--boilerplate starts-->
+                                        <option value="Error">JS Error!</option><!--This is injected by signerSelect.js-->
+                                    </select>                                          <!--boilerplate ends-->
+                                </div>
+                            </aside>
+                        </div>
+                    </div>
+
+                    <div class="signer__options" id="sign-pattern">
+                        <h4 class="header__subtitle--pdftron">Patrón de firmas</h4>
+                        <div class="MF-Firmante">
+                            <select class="MF-signerPattern" id="pattern">
+                                <option value="0" selected>Automatico</option>
+                                <option value="1">Consecutivas</option>
+                                <option value="2">Definido por mi</option>
+                                <option value="3">Arbitrario</option>
+                              </select>
+                        </div>
+                    </div>
+
+                    <div class="signers__header d-flex">
+                        <h4 class="header__subtitle--pdftron">Campos básicos: &nbsp;
+                        <!--<div class="display-message">-->
+                            <img src="../../assets/information-button.svg" alt="Elementos minimos de firma">
+                        <!--</div>-->
+                    </h4>
+                        <div class="alt__container">
+                            <div class="alt__message">
+                                <p>Selecciona el campo que deseas</p>
+                                <p>agregar al documento.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="signer__options">
+
+                        <button class="signer__item" id="SIGNATURE">
+                            &nbsp; &nbsp;
+                            <img src="../../assets/img/icons/icon-field-firma.svg" >
+                            <span class="tool__name">Firma</span>
+                        </button>
+
+                        <button class="signer__item" id="INITIALS">
+                            &nbsp; &nbsp;
+                            <img src="../../assets/font.svg" >
+                            <span class="tool__name">Iniciales</span>
+                        </button>
+
+                        <button class="signer__item" id="DATE">
+                            &nbsp; &nbsp;
+                            <img src="../../assets/date.svg" >
+                            <span class="tool__name">Fecha</span>
+                        </button>
+
+                        <button class="signer__item" id="TEXT">
+                            &nbsp; &nbsp;
+                            <img src="../../assets/text.svg" >
+                            <span class="tool__name">Texto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!--<div class="file__preview">
+                    <div class="file__thumbnail th-fix">
+                        <pdf-viewer [src]="file" [original-size]="false" [show-all]="false">
+                        </pdf-viewer>
+                    </div>
+                    <p class="file__name" *ngIf="this.files.length > 0">{{ this.files[0].name }}</p>
+                </div>-->
+            </div>
+            <!--<div class="file__wrapper box-2">-->
+            <div class="file__wrapper">
+                <div class="header-menu">
+                    <div>
+                        <p class="file__name algn-l" id="docName">{{ docName }}</p>
+                    </div>
+
+                        <div class="select-sim" id="signatures-new" style="width: 200px; z-index: 99;">
+
+                        </div>
+                    
+                    <div class="MF-sign" id="add-sign">
+                        <img src="../../assets/signature.svg" />
+                    </div>
+                    <div class="sign--options">
+                        <button id="continue-btn" class="MF-button">
+                            Firmar
+                        </button>
+                    </div>
+                </div>
+                <div class="bg-white">
+                    <div id="scrollView">
+                        <div id="viewer"></div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </section> 
+    <!--vanilla app ends-->
+        <div id="otp-modal" class="MF-modal"> 
+            <div class="MF-inner">
+                <form id="otp-form">                    
+                    <label class="MF-center">
+                        <span>Para firmar ingresa el código de seguridad enviado a tu número de celular terminado en <span id="phoneUs"></span></span>
+                    </label>
+                    <div id="opt-error" class="MF-center MF-error">FATAL ERROR!</div>
+                    <div class="MF-center">
+                        <input class = "MF-input-big" id="opt-input" type="number" maxlength="6" required >
+                    </div> 
+                    <div class="MF-center"><a href="#">Reenviar código</a></div> 
+                    <div class="MF-center">
+                        <button class="MF-button2" type="submit">Finalizar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </main>
+</body>
+<script>
+    
+function openTab(evt, actionName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(actionName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+  
+  // Get the element with id="defaultOpen" and click on it
+  document.getElementById("defaultOpen").click();
+</script>
+
+</html>

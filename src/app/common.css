@@ -1,0 +1,82 @@
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font: normal normal normal 16px/18px Montserrat;
+    color: #3f3f3f;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+  }
+
+  .MF-header {
+    background: white;
+    padding-top: 40px; 
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-bottom: 0px;
+  }
+  .MF-content {
+    width: 100%;
+    background: white;
+    padding-top: 20px; 
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-bottom: 30px;
+
+  }
+
+  .MF-footer {
+    background: white;
+    padding: 20px;
+  }
+
+  .MF-highlight {
+      color: #9E267C;
+      font-weight: bold;
+  }
+
+  .MF-button {
+      background-color: #9E267C;
+      border-radius: 5px;
+      color: white;
+      text-align: center;
+      padding: 12px 10px;
+      border: none;
+      font: normal normal 700 extra-expanded 15px/19px Montserrat;
+      width: 100%;
+      letter-spacing: 0.5px;
+  }
+
+  .MF-button2 {
+    background-color: white;
+    border-radius: 5px; 
+    color: #3f3f3f;
+    text-align: center;
+    padding: 12px 10px;
+    border-color: #3f3f3f;
+    border-width: thin;
+    font: normal normal normal extra-expanded 15px/19px Montserrat;
+    width: 100%;
+    letter-spacing: 0.5px;
+}
+.MF-button3 {
+    background-color: white;
+    border-radius: 5px; 
+    text-align: center;
+    padding: 5px 10px;
+    border-color: rgb(255, 136, 0);
+    border-width: 1px;
+    width: 100%;
+    border-style: solid;
+}
+.MF-small {
+    text-align: center;
+    padding-top: 20px;
+    font: normal normal normal 12px/14px Montserrat;
+}

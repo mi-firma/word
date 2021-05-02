@@ -1,0 +1,509 @@
+/* 
+ * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ * See LICENSE in the project root for license information.
+ */
+ /*.form__floating > input:focus {
+    outline: none;
+  }
+  
+  .form__floating > label {
+    cursor: auto;
+  }
+*/
+ html {
+  -ms-overflow-style: none;
+}
+
+ body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font: normal normal normal 16px/18px Montserrat;
+    color: #3f3f3f;
+}
+ 
+ ul {
+     margin: 0;
+     padding: 0;
+ }
+ 
+ .ms-welcome__header {
+    padding: 20px;
+    padding-bottom: 30px;
+    padding-top: 100px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    align-items: center;
+ }
+
+ .ms-welcome__main {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-flex: 1 0 0;
+    flex: 1 0 0;
+    padding: 10px 20px;
+ }
+ 
+ .ms-welcome__main > h2 {
+     width: 100%;
+     text-align: center;
+ }
+ 
+.cargador-screen {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: rgba(0,0,0,.3);
+    z-index: 10000;
+    position: fixed;
+    background-color: rgba(25,21,23,.67);
+    width: 100%;
+    height: 100%!important;
+    display: none;
+}
+
+.cargador-screen-icon {
+    z-index: 100001;
+    display: block;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    background-image: url(../../assets/img/loader.mifirma.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+} 
+
+.attention-component 
+{
+    width:60%;
+    padding:20px;
+    position:fixed;
+    top:50%;left:50%;
+    transform:translate(-50%, -50%);
+    z-index:10000
+}
+.attention-component *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box
+}
+.attention-component .inner 
+{
+    border-radius:5px;
+    overflow:hidden;
+    position:relative;
+    box-shadow:0 1px 3px rgba(0,0,0,0.16),0 1px 3px rgba(0,0,0,0.13)
+}
+.attention-component .inner-container
+{
+    padding:20px;
+    background-color:#fff
+}
+.attention-component .head
+{
+    padding:10px 40px 10px 20px;
+    background-color:#ad0096
+}
+.attention-component .close
+{
+    position:absolute;
+    top:10px;
+    right:10px;
+    display:inline-block;
+    margin-bottom:10px;
+    cursor:pointer
+}
+.attention-component .close path:first-child{fill:#fff}
+.attention-component .title{font-size:16px;color:#fff}
+.attention-component .content{font-size:14px}
+.attention-component .input
+{
+    width:100%;
+    border:1px solid #f4f4f4;
+    border-radius:5px;
+    padding:10px 20px;
+    margin-top:20px
+}
+.attention-component .input:focus{outline-offset:0;outline:none}
+.attention-component .button{padding:10px 20px;width:50%;display:block;margin:20px auto 0 auto;border:0;cursor:pointer;border-radius:5px;background-color:#3394de;color:#fff}
+.attention-component .buttons{margin-top:20px;text-align:center}
+.attention-component .cancel,.attention-component .confirm{padding:10px 20px;border:0;border-radius:5px;color:#fff;cursor:pointer}
+.attention-component .cancel{background-color:#EF767A;margin-right:10px}
+.attention-component .confirm{background-color:#ad0096;margin-left:10px}
+
+  .MF-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+  .MF-header {
+    background: white;
+    padding: 60px;
+    padding-top: 120px; 
+    padding-bottom: 0px;
+  }
+  .MF-content {
+    width: 100%;
+    background: white;
+    padding-right: 80px;
+    padding-left: 60px;
+    padding-top: 20px; 
+    padding-bottom: 30px;
+
+  }
+
+  .MF-footer {
+    background: white;
+    padding: 20px;
+  }
+
+  .MF-highlight {
+      color: #9E267C;
+      font-weight: bold;
+  }
+
+  .MF-button {
+      background-color: #9E267C;
+      border-radius: 5px;
+      color: white;
+      text-align: center;
+      padding: 12px 10px;
+      border: none;
+      border-style: none;
+      font: normal normal 600 extra-expanded 14px/17px Montserrat;
+      min-width: 160px;
+      cursor: pointer;
+  }
+
+  .MF-input{
+      width: 100%;
+      font: normal normal 400  15px/19px Montserrat;
+      padding: .8rem .85rem .35rem; 
+      
+
+  }  
+
+  .input:focus{
+      /*outline-offset:0;
+      outline:none;*/
+      border-width: 1px;
+    }
+
+  .MF-row {
+      width: 100%;
+      display: inline-block;
+      padding-top: 8px;
+      
+  }
+  .MF-row  i {
+    margin-left: -30px;
+    cursor: pointer;
+}
+  .MF-div {
+    position: relative;
+    padding-top: 5px;
+    width: 100%;
+}
+
+.MF-small-1 {
+    padding-top: 0px;
+    padding-bottom: 10px;
+    font: normal normal normal 12px/14px Montserrat;
+}
+
+.MF-xsmall {
+    padding-top: 0px;
+    padding-bottom: 15px;
+    font: normal normal normal 10px/12px Montserrat;
+}
+
+.MF-ribbon {
+    height: 20px;
+    background-color: purple; /* For browsers that do not support gradients */
+    background-image: linear-gradient(to right,#6b2958, #ff00b7, #9E267C);
+    padding: 0px;
+    margin: 0;
+
+}
+
+.secondScreen {
+    display: none;
+    padding-top: 10px;
+}
+
+.thirdScreen {
+    display: none;
+    padding-top: 0px;
+}
+
+.MF-error {
+    display: none;
+    color: tomato;
+    font-size: 12.5px;
+
+}
+
+.MF-modal {
+    position: fixed;
+    top:30px; 
+    left: 20px;
+    right: 30px;
+    bottom: 30px;
+    z-index: 999; 
+    display: none; 
+    justify-content: center; 
+    align-items: center; 
+    /*width: 100%;
+     height: 100vh; */
+}
+
+.MF-input-big{
+    width: 80%;
+    font: normal normal 400  20px/24px Montserrat;
+    padding: .35rem .65rem; 
+    border-radius: 8px;
+    border-width: 1px;
+    border-color: #3f3f3f;
+    text-align: center;
+    letter-spacing: 25px;
+}
+
+.MF-inner {
+    overflow-y: scroll;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.6);
+    transition: 0.3s; 
+    width: 100%;
+    height: 80%; 
+    background-color: #fff; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    text-align: center;
+    border-radius: 8px; 
+    padding:60px 10px 30px 10px;
+}
+
+.MF-button2 {
+    position:sticky;
+    padding-top: 10px;
+    right: 120px;
+    margin:0 auto;
+    background-color: #9E267C;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+    padding: 15px 12px;
+    border: none;
+    border-style: none;
+    font: normal normal 700 extra-expanded 16px/18px Montserrat;
+    min-width: 180px;
+}
+
+.MF-button3 {
+    position:sticky;
+    padding-top: 10px;
+    margin:0 auto;
+    background-color: #9E267C;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+    padding: 15px 12px;
+    border: none;
+    border-style: none;
+    font: normal normal 400 extra-expanded 16px/18px Montserrat;
+    min-width: 180px;
+}
+
+.MF-big {
+    display: inline;
+    z-index: 100;
+    position: relative;
+    left: 15px;
+    top: -27px;
+    font: normal normal 100  16px/18px Montserrat;
+    background-color: rgba(255, 255, 255, 0);
+    padding: 3px;
+    padding-left: 0px;
+    color: #8f8f8f;
+  }
+  .MF-small {
+    display: inline;
+    z-index: 100;
+    position: relative;
+    left: 10px;
+    top: -49px;
+    font-size: 10px;
+    background-color: rgb(255, 255, 255);
+    padding: 0px 1px 0px 1px;
+    color: #707070;
+  }
+
+  .MF-terminos {
+    font: normal normal 100  14px/16px Montserrat;
+    color: #655266;
+  }
+
+  .MF-nav {
+      text-decoration: underline;
+      cursor: pointer;
+  }
+
+  .MF-aceptar{
+      font-size: 12px;
+      border-top: 1px solid gray;
+      position: relative;
+      bottom: 0;
+      background-color: #ffffff;
+      height: 50px;
+      width: 100%;
+      align-items: baseline;
+      justify-content: center;
+      text-align: center;
+      padding: 10px 0px;
+  }
+
+  .MF-eye {
+      position: absolute;
+      right: -5px;
+      top: 10px;
+      z-index: 999;
+  }
+
+  /* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .float-validation {
+    display: none;
+    position: absolute;
+    float: right;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    width: 200px;
+    /*position: fixed;  Stay in place */
+    z-index: 5000;
+    /* Location of the box */
+    right: 25px;
+    /*top: 350px;*/
+    background-color: #505050a2;
+    color: white;
+    margin: auto;
+    padding: 8px;
+    border: 1px solid #888;
+  }
+.float-validation label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+.float-validation ul.helper-text {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 22px;
+  color: red;
+}
+.float-validation ul.helper-text li.valid {
+  color: #ffffff;
+}
+
+form input {
+    border-radius: 5px;
+      border-width: 1px;
+      border-color: #c5c5c5;
+      border-style: solid;
+}
+/*
+form input[type=password] {
+    display: block;
+    height: 36px;
+    margin-bottom: 8px;
+    padding: 0 36px 0 10px;border: 1px solid #6e6e6e;
+    
+  }*/
+  form input.valid  {
+    border: 1px solid #4bb71b;
+  }
+  form input.invalid {
+    border: 1px solid #fd0000;
+  }
+
+  .success-animation { margin:30px auto;}
+
+.checkmark {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: block;
+    stroke-width: 2;
+    stroke: #4bb71b;
+    stroke-miterlimit: 10;
+    box-shadow: inset 0px 0px 0px #4bb71b;
+    animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+    position:relative;
+    top: 5px;
+    right: 5px;
+   margin: 0 auto;
+}
+.checkmark__circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    stroke-width: 2;
+    stroke-miterlimit: 10;
+    stroke: #4bb71b;
+    fill: #fff;
+    animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+ 
+}
+
+.checkmark__check {
+    transform-origin: 50% 50%;
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes stroke {
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes scale {
+    0%, 100% {
+        transform: none;
+    }
+
+    50% {
+        transform: scale3d(1.1, 1.1, 1);
+    }
+}
+
+@keyframes fill {
+    100% {
+        box-shadow: inset 0px 0px 0px 30px #4bb71b;
+    }
+}
