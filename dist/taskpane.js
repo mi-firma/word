@@ -19818,13 +19818,15 @@ function extend() {
 /*!***************************************!*\
   !*** ./src/helpers/documentHelper.js ***!
   \***************************************/
-/*! exports provided: writeDataToOfficeDocument, openMiFirma */
+/*! exports provided: writeDataToOfficeDocument, openMiFirmaWord, openMiFirmaExcel, openMiFirmaPowerPoint */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "writeDataToOfficeDocument", function() { return writeDataToOfficeDocument; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openMiFirma", function() { return openMiFirma; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openMiFirmaWord", function() { return openMiFirmaWord; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openMiFirmaExcel", function() { return openMiFirmaExcel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openMiFirmaPowerPoint", function() { return openMiFirmaPowerPoint; });
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -19903,22 +19905,20 @@ function filterUserProfileInfo(result) {
 
 function writeDataToExcel(result) {
   return Excel.run(function (context) {
-    var sheet = context.workbook.worksheets.getActiveWorksheet();
     var data = [];
-    var userProfileInfo = filterUserProfileInfo(result);
+    var userProfileInfo = filterUserProfileInfo(result); //console.log('Raw Data:');
+    //console.log(userProfileInfo);
 
     for (var i = 0; i < userProfileInfo.length; i++) {
       if (userProfileInfo[i] !== null) {
-        var innerArray = [];
-        innerArray.push(userProfileInfo[i]);
-        data.push(innerArray);
+        data.push(userProfileInfo[i]);
       }
     }
 
-    var rangeAddress = "B5:B".concat(5 + (data.length - 1));
-    var range = sheet.getRange(rangeAddress);
-    range.values = data;
-    range.format.autofitColumns();
+    localStorage.setItem('noob', '1');
+    localStorage.setItem('authId', '0');
+    localStorage.setItem('userFromOffice', true);
+    openMiFirmaExcel();
     return context.sync();
   });
 }
@@ -19945,25 +19945,22 @@ function writeDataToOutlook(result) {
 }
 
 function writeDataToPowerPoint(result) {
-  var data = [];
-  var userProfileInfo = filterUserProfileInfo(result);
+  return PowerPoint.run(function (context) {
+    var data = [];
+    var userProfileInfo = filterUserProfileInfo(result); //console.log('Raw Data:');
+    //console.log(userProfileInfo);
 
-  for (var i = 0; i < userProfileInfo.length; i++) {
-    if (userProfileInfo[i] !== null) {
-      data.push(userProfileInfo[i]);
+    for (var i = 0; i < userProfileInfo.length; i++) {
+      if (userProfileInfo[i] !== null) {
+        data.push(userProfileInfo[i]);
+      }
     }
-  }
 
-  var userInfo = "";
-
-  for (var _i2 = 0; _i2 < data.length; _i2++) {
-    userInfo += data[_i2] + "\n";
-  }
-
-  Office.context.document.setSelectedDataAsync(userInfo, function (asyncResult) {
-    if (asyncResult.status === Office.AsyncResultStatus.Failed) {
-      throw asyncResult.error.message;
-    }
+    localStorage.setItem('noob', '1');
+    localStorage.setItem('authId', '0');
+    localStorage.setItem('userFromOffice', true);
+    openMiFirmaPowerPoint();
+    return context.sync();
   });
 }
 
@@ -19977,53 +19974,22 @@ function writeDataToWord(result) {
       if (userProfileInfo[i] !== null) {
         data.push(userProfileInfo[i]);
       }
-    } //console.log("User data from Office:");
-    //console.log(data);
-
-
-    var documentBody = context.document.body;
-
-    for (var _i3 = 0; _i3 < data.length; _i3++) {
-      if (data[_i3] !== null) {//documentBody.insertParagraph(data[i], "End");
-      }
     }
-    /*var authContext = new AuthenticationContext(config);
-    authContext.acquireToken("https://graph.microsoft.com", function (error, token) {
-        var request = new XMLHttpRequest;
-        request.open("GET", "https://graph.microsoft.com/beta/me/Photos/48X48/$value");
-        request.setRequestHeader("Authorization", "Bearer " + token);
-        request.responseType = "blob";
-        request.onload = function () {
-            if (request.readyState === 4 && request.status === 200) {
-                var imageElm = document.createElement("img");
-                var reader = new FileReader();
-                reader.onload = function () {
-                    // Add the base64 image to the src attribute
-                    imageElm.src = reader.result;
-                    // Display the user's profile picture
-                    document.getElementsByClassName('user-picture-box')[0].appendChild(imageElm);
-                }
-                reader.readAsDataURL(request.response);
-            }
-        };
-        request.send(null);
-    });*/
-
 
     localStorage.setItem('noob', '1');
     localStorage.setItem('authId', '0');
     localStorage.setItem('userFromOffice', true);
-    openMiFirma();
+    openMiFirmaWord();
     return context.sync();
   });
 }
 
-function openMiFirma() {
-  return _openMiFirma.apply(this, arguments);
+function openMiFirmaWord() {
+  return _openMiFirmaWord.apply(this, arguments);
 }
 
-function _openMiFirma() {
-  _openMiFirma = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+function _openMiFirmaWord() {
+  _openMiFirmaWord = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -20103,7 +20069,183 @@ function _openMiFirma() {
       }
     }, _callee2);
   }));
-  return _openMiFirma.apply(this, arguments);
+  return _openMiFirmaWord.apply(this, arguments);
+}
+
+function openMiFirmaExcel() {
+  return _openMiFirmaExcel.apply(this, arguments);
+}
+
+function _openMiFirmaExcel() {
+  _openMiFirmaExcel = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+    return regeneratorRuntime.wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            return _context4.abrupt("return", Excel.run( /*#__PURE__*/function () {
+              var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(context) {
+                var documentName, url;
+                return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                  while (1) {
+                    switch (_context3.prev = _context3.next) {
+                      case 0:
+                        Office.context.ui.displayDialogAsync("https://mifirma.centralus.cloudapp.azure.com/app.html", {
+                          width: 30,
+                          height: 75
+                        }); //  if (localStorage.getItem("word-document1") === null) {
+
+                        documentName = "empty";
+
+                        if (Office.context.document.url != null) {
+                          url = Office.context.document.url;
+                          documentName = url.substring(url.lastIndexOf('/') + 1);
+                        }
+
+                        Office.context.document.getFileAsync(Office.FileType.Pdf, {
+                          sliceSize: 4194304
+                        }, function (result) {
+                          if (result.status === Office.AsyncResultStatus.Succeeded) {
+                            var file = result.value;
+                            file.getSliceAsync(0, function (result) {
+                              if (result.status === Office.AsyncResultStatus.Succeeded) {
+                                var data = result.value.data;
+                                console.log('DATA: ');
+                                console.log(data);
+
+                                if (data) {
+                                  var buff = Buffer.from(data, 'utf-8');
+                                  var base64 = buff.toString('base64');
+                                  console.log('base64: ');
+                                  console.log(base64);
+                                  localStorage.setItem('word-document1', base64);
+                                  localStorage.setItem('word-document-name1', documentName);
+                                  console.log("Excel to PDF y guardado en LocalStorage:");
+                                  console.log(localStorage.getItem('word-document-name1'));
+                                  console.log(localStorage.getItem('word-document1')); //console.log(Office.context.document.Name);
+                                }
+                              }
+
+                              file.closeAsync(function (result) {
+                                console.log(result.status);
+                              });
+                            });
+                          } else {
+                            console.log("Error al cargar pdf ");
+                          }
+                        }); //}//
+
+                        _context3.next = 6;
+                        return context.sync();
+
+                      case 6:
+                      case "end":
+                        return _context3.stop();
+                    }
+                  }
+                }, _callee3);
+              }));
+
+              return function (_x2) {
+                return _ref2.apply(this, arguments);
+              };
+            }()));
+
+          case 1:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4);
+  }));
+  return _openMiFirmaExcel.apply(this, arguments);
+}
+
+function openMiFirmaPowerPoint() {
+  return _openMiFirmaPowerPoint.apply(this, arguments);
+}
+
+function _openMiFirmaPowerPoint() {
+  _openMiFirmaPowerPoint = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+    return regeneratorRuntime.wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            return _context6.abrupt("return", PowerPoint.run( /*#__PURE__*/function () {
+              var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(context) {
+                var documentName, url;
+                return regeneratorRuntime.wrap(function _callee5$(_context5) {
+                  while (1) {
+                    switch (_context5.prev = _context5.next) {
+                      case 0:
+                        Office.context.ui.displayDialogAsync("https://mifirma.centralus.cloudapp.azure.com/app.html", {
+                          width: 30,
+                          height: 75
+                        }); //  if (localStorage.getItem("word-document1") === null) {
+
+                        documentName = "empty";
+
+                        if (Office.context.document.url != null) {
+                          url = Office.context.document.url;
+                          documentName = url.substring(url.lastIndexOf('/') + 1);
+                        }
+
+                        Office.context.document.getFileAsync(Office.FileType.Pdf, {
+                          sliceSize: 4194304
+                        }, function (result) {
+                          if (result.status === Office.AsyncResultStatus.Succeeded) {
+                            var file = result.value;
+                            file.getSliceAsync(0, function (result) {
+                              if (result.status === Office.AsyncResultStatus.Succeeded) {
+                                var data = result.value.data;
+                                console.log('DATA: ');
+                                console.log(data);
+
+                                if (data) {
+                                  var buff = Buffer.from(data, 'utf-8');
+                                  var base64 = buff.toString('base64');
+                                  console.log('base64: ');
+                                  console.log(base64);
+                                  localStorage.setItem('word-document1', base64);
+                                  localStorage.setItem('word-document-name1', documentName);
+                                  console.log("PowerPoint to PDF y guardado en LocalStorage:");
+                                  console.log(localStorage.getItem('word-document-name1'));
+                                  console.log(localStorage.getItem('word-document1')); //console.log(Office.context.document.Name);
+                                }
+                              }
+
+                              file.closeAsync(function (result) {
+                                console.log(result.status);
+                              });
+                            });
+                          } else {
+                            console.log("Error al cargar pdf ");
+                          }
+                        }); //}//
+
+                        _context5.next = 6;
+                        return context.sync();
+
+                      case 6:
+                      case "end":
+                        return _context5.stop();
+                    }
+                  }
+                }, _callee5);
+              }));
+
+              return function (_x3) {
+                return _ref3.apply(this, arguments);
+              };
+            }()));
+
+          case 1:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, _callee6);
+  }));
+  return _openMiFirmaPowerPoint.apply(this, arguments);
 }
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/buffer/index.js */ "./node_modules/buffer/index.js").Buffer))
 
@@ -20340,12 +20482,14 @@ function handleAADErrors(exchangeResponse) {
 /*!**********************************!*\
   !*** ./src/taskpane/taskpane.js ***!
   \**********************************/
-/*! exports provided: run */
+/*! exports provided: runWord, runExcel, runPowerPoint */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "run", function() { return run; });
+/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "runWord", function() { return runWord; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "runExcel", function() { return runExcel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "runPowerPoint", function() { return runPowerPoint; });
 /* harmony import */ var _assets_icon_16_png__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../assets/icon-16.png */ "./assets/icon-16.png");
 /* harmony import */ var _assets_icon_16_png__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_assets_icon_16_png__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _assets_icon_32_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../assets/icon-32.png */ "./assets/icon-32.png");
@@ -20371,20 +20515,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var ssoAuthHelper = __webpack_require__(/*! ./../helpers/ssoauthhelper */ "./src/helpers/ssoauthhelper.js");
 
 Office.onReady(function (info) {
+  localStorage.setItem('outsideOffice', false);
+  document.getElementById("getGraphDataButton").onclick = ssoAuthHelper.getGraphData();
+  document.getElementById("sideload-msg").style.display = "none";
+  document.getElementById("app-body").style.display = "flex";
+
   if (info.host === Office.HostType.Word) {
-    localStorage.setItem('outsideOffice', false);
-    document.getElementById("getGraphDataButton").onclick = ssoAuthHelper.getGraphData();
-    document.getElementById("sideload-msg").style.display = "none";
-    document.getElementById("app-body").style.display = "flex";
-    document.getElementById("run").onclick = run;
+    document.getElementById("run").onclick = runWord;
+  } else if (info.host === Office.HostType.Excel) {
+    document.getElementById("run").onclick = runExcel;
+  } else if (info.host === Office.HostType.PowerPoint) {
+    document.getElementById("run").onclick = runPowerPoint;
   }
 });
-function run() {
-  return _run.apply(this, arguments);
+function runWord() {
+  return _runWord.apply(this, arguments);
 }
 
-function _run() {
-  _run = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+function _runWord() {
+  _runWord = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -20468,7 +20617,191 @@ function _run() {
       }
     }, _callee2);
   }));
-  return _run.apply(this, arguments);
+  return _runWord.apply(this, arguments);
+}
+
+function runExcel() {
+  return _runExcel.apply(this, arguments);
+}
+
+function _runExcel() {
+  _runExcel = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+    return regeneratorRuntime.wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            return _context4.abrupt("return", Excel.run( /*#__PURE__*/function () {
+              var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(context) {
+                var documentName, url;
+                return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                  while (1) {
+                    switch (_context3.prev = _context3.next) {
+                      case 0:
+                        localStorage.setItem('outsideOffice', true);
+                        localStorage.setItem('userFromOffice', false);
+                        localStorage.setItem('noob', '0'); //garantiza que no usa info de office, ya que fue llamado desde clic en iniciar sesion
+
+                        Office.context.ui.displayDialogAsync("https://mifirma.centralus.cloudapp.azure.com/app.html", {
+                          width: 30,
+                          height: 75
+                        }); // if (localStorage.getItem("word-document1") === null) {
+
+                        documentName = "empty";
+
+                        if (Office.context.document.url != null) {
+                          url = Office.context.document.url;
+                          documentName = url.substring(url.lastIndexOf('/') + 1);
+                        }
+
+                        Office.context.document.getFileAsync(Office.FileType.Pdf, {
+                          sliceSize: 4194304
+                        }, function (result) {
+                          if (result.status === Office.AsyncResultStatus.Succeeded) {
+                            var file = result.value;
+                            file.getSliceAsync(0, function (result) {
+                              if (result.status === Office.AsyncResultStatus.Succeeded) {
+                                var data = result.value.data;
+                                console.log('DATA: ');
+                                console.log(data);
+
+                                if (data) {
+                                  var buff = Buffer.from(data, 'utf-8');
+                                  var base64 = buff.toString('base64');
+                                  console.log('base64: ');
+                                  console.log(base64);
+                                  localStorage.setItem('word-document1', base64);
+                                  localStorage.setItem('word-document-name1', documentName);
+                                  console.log("Excel to PDF y guardado en LocalStorage:");
+                                  console.log(localStorage.getItem('word-document-name1'));
+                                  console.log(localStorage.getItem('word-document1')); //console.log(Office.context.document.Name);
+                                }
+                              }
+
+                              file.closeAsync(function (result) {
+                                console.log(result.status);
+                              });
+                            });
+                          } else {
+                            console.log("Error al cargar pdf ");
+                          }
+                        }); //}//
+
+                        _context3.next = 9;
+                        return context.sync();
+
+                      case 9:
+                      case "end":
+                        return _context3.stop();
+                    }
+                  }
+                }, _callee3);
+              }));
+
+              return function (_x2) {
+                return _ref2.apply(this, arguments);
+              };
+            }()));
+
+          case 1:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4);
+  }));
+  return _runExcel.apply(this, arguments);
+}
+
+function runPowerPoint() {
+  return _runPowerPoint.apply(this, arguments);
+}
+
+function _runPowerPoint() {
+  _runPowerPoint = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+    return regeneratorRuntime.wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            return _context6.abrupt("return", PowerPoint.run( /*#__PURE__*/function () {
+              var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(context) {
+                var documentName, url;
+                return regeneratorRuntime.wrap(function _callee5$(_context5) {
+                  while (1) {
+                    switch (_context5.prev = _context5.next) {
+                      case 0:
+                        localStorage.setItem('outsideOffice', true);
+                        localStorage.setItem('userFromOffice', false);
+                        localStorage.setItem('noob', '0'); //garantiza que no usa info de office, ya que fue llamado desde clic en iniciar sesion
+
+                        Office.context.ui.displayDialogAsync("https://mifirma.centralus.cloudapp.azure.com/app.html", {
+                          width: 30,
+                          height: 75
+                        }); // if (localStorage.getItem("word-document1") === null) {
+
+                        documentName = "empty";
+
+                        if (Office.context.document.url != null) {
+                          url = Office.context.document.url;
+                          documentName = url.substring(url.lastIndexOf('/') + 1);
+                        }
+
+                        Office.context.document.getFileAsync(Office.FileType.Pdf, {
+                          sliceSize: 4194304
+                        }, function (result) {
+                          if (result.status === Office.AsyncResultStatus.Succeeded) {
+                            var file = result.value;
+                            file.getSliceAsync(0, function (result) {
+                              if (result.status === Office.AsyncResultStatus.Succeeded) {
+                                var data = result.value.data;
+                                console.log('DATA: ');
+                                console.log(data);
+
+                                if (data) {
+                                  var buff = Buffer.from(data, 'utf-8');
+                                  var base64 = buff.toString('base64');
+                                  console.log('base64: ');
+                                  console.log(base64);
+                                  localStorage.setItem('word-document1', base64);
+                                  localStorage.setItem('word-document-name1', documentName);
+                                  console.log("PowerPoint to PDF y guardado en LocalStorage:");
+                                  console.log(localStorage.getItem('word-document-name1'));
+                                  console.log(localStorage.getItem('word-document1')); //console.log(Office.context.document.Name);
+                                }
+                              }
+
+                              file.closeAsync(function (result) {
+                                console.log(result.status);
+                              });
+                            });
+                          } else {
+                            console.log("Error al cargar pdf ");
+                          }
+                        }); //}//
+
+                        _context5.next = 9;
+                        return context.sync();
+
+                      case 9:
+                      case "end":
+                        return _context5.stop();
+                    }
+                  }
+                }, _callee5);
+              }));
+
+              return function (_x3) {
+                return _ref3.apply(this, arguments);
+              };
+            }()));
+
+          case 1:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, _callee6);
+  }));
+  return _runPowerPoint.apply(this, arguments);
 }
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/buffer/index.js */ "./node_modules/buffer/index.js").Buffer))
 

@@ -194,7 +194,7 @@ Office.onReady(function (info) {
   console.log(localStorage.getItem('word-document-name1'));
   console.log(localStorage.getItem('word-document1')); //console.log(info.document.Name);
 
-  if (info.host === Office.HostType.Word) {
+  if (info.host === Office.HostType.Word || info.host === Office.HostType.Excel || info.host === Office.HostType.PowerPoint) {
     getEnvironment();
     _utils_js__WEBPACK_IMPORTED_MODULE_4__["detectWebcam"]().then(function (value) {
       haveCamera = value;

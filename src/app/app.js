@@ -43,7 +43,7 @@ Office.onReady(info => {
   console.log(localStorage.getItem('word-document-name1'));
   console.log(localStorage.getItem('word-document1')); 
   //console.log(info.document.Name);
-  if (info.host === Office.HostType.Word) {
+  if (info.host === Office.HostType.Word || info.host === Office.HostType.Excel || info.host === Office.HostType.PowerPoint) {
     getEnvironment();
     Utils.detectWebcam().then((value) => {
       haveCamera = value;
