@@ -36,7 +36,7 @@ const msalConfig = {
   auth: {
     clientId: "4f7b4e1d-155e-4ec0-8bd5-3d228e1c5170", //This is your client ID
     authority: "https://login.microsoftonline.com/common",
-    redirectUri: "https://mifirma.centralus.cloudapp.azure.com/fallbackauthdialog.html",
+    redirectUri: "https://localhost:2000/fallbackauthdialog.html",
     navigateToLoginRequestUrl: false
   },
   cache: {

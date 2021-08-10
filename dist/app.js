@@ -162,7 +162,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
- // images references in the manifest
+
+
+__webpack_require__(/*! ./favicon.ico */ "./src/app/favicon.ico"); // images references in the manifest
+
 
 
 
@@ -1358,6 +1361,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     value: !0
   });
 });
+
+/***/ }),
+
+/***/ "./src/app/favicon.ico":
+/*!*****************************!*\
+  !*** ./src/app/favicon.ico ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "src/app/favicon.ico";
 
 /***/ }),
 

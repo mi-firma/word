@@ -31,7 +31,7 @@ export async function runWord() {
     localStorage.setItem('outsideOffice', true);
     localStorage.setItem('userFromOffice', false);
     localStorage.setItem('noob', '0');//garantiza que no usa info de office, ya que fue llamado desde clic en iniciar sesion
-    Office.context.ui.displayDialogAsync("https://mifirma.centralus.cloudapp.azure.com/app.html", { width:30, height:75 });   
+    Office.context.ui.displayDialogAsync("https://localhost:2000/app.html", { width:30, height:75 });   
 
    // if (localStorage.getItem("word-document1") === null) {
       var documentName = "empty";
@@ -81,7 +81,7 @@ export async function runExcel() {
     localStorage.setItem('outsideOffice', true);
     localStorage.setItem('userFromOffice', false);
     localStorage.setItem('noob', '0');//garantiza que no usa info de office, ya que fue llamado desde clic en iniciar sesion
-    Office.context.ui.displayDialogAsync("https://mifirma.centralus.cloudapp.azure.com/app.html", { width:30, height:75 });   
+    Office.context.ui.displayDialogAsync("https://localhost:2000/app.html", { width:30, height:75 });   
 
    // if (localStorage.getItem("word-document1") === null) {
       var documentName = "empty";
@@ -131,7 +131,7 @@ export async function runPowerPoint() {
     localStorage.setItem('outsideOffice', true);
     localStorage.setItem('userFromOffice', false);
     localStorage.setItem('noob', '0');//garantiza que no usa info de office, ya que fue llamado desde clic en iniciar sesion
-    Office.context.ui.displayDialogAsync("https://mifirma.centralus.cloudapp.azure.com/app.html", { width:30, height:75 });   
+    Office.context.ui.displayDialogAsync("https://localhost:2000/app.html", { width:30, height:75 });   
 
    // if (localStorage.getItem("word-document1") === null) {
       var documentName = "empty";

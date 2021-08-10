@@ -1745,7 +1745,7 @@ function logOut() {
     sessionStorage.clear();
     //window.localStorage.clear();
 
-    window.location = "https://mifirma.centralus.cloudapp.azure.com/app.html";
+    window.location = "https://localhost:2000/app.html";
 }
 
 function openPersonalFolder() {

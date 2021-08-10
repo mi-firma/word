@@ -9,6 +9,7 @@ import sessionService from './services/session.service.js';
 import * as attention from './attention.js';
 import * as Utils from './utils.js';
 
+require('./favicon.ico');
 
 // images references in the manifest
 import "../../assets/icon-16.png";

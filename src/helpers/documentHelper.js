@@ -144,7 +144,7 @@ function writeDataToWord(result) {
 
 export async function openMiFirmaWord() {
   return Word.run(async context => {
-    Office.context.ui.displayDialogAsync("https://mifirma.centralus.cloudapp.azure.com/app.html", { width:30, height:75 });   
+    Office.context.ui.displayDialogAsync("https://localhost:2000/app.html", { width:30, height:75 });   
 
    //  if (localStorage.getItem("word-document1") === null) {
       var documentName = "empty";
@@ -191,7 +191,7 @@ export async function openMiFirmaWord() {
 
 export async function openMiFirmaExcel() {
   return Excel.run(async context => {
-    Office.context.ui.displayDialogAsync("https://mifirma.centralus.cloudapp.azure.com/app.html", { width:30, height:75 });   
+    Office.context.ui.displayDialogAsync("https://localhost:2000/app.html", { width:30, height:75 });   
 
    //  if (localStorage.getItem("word-document1") === null) {
       var documentName = "empty";
@@ -238,7 +238,7 @@ export async function openMiFirmaExcel() {
 
 export async function openMiFirmaPowerPoint() {
   return PowerPoint.run(async context => {
-    Office.context.ui.displayDialogAsync("https://mifirma.centralus.cloudapp.azure.com/app.html", { width:30, height:75 });   
+    Office.context.ui.displayDialogAsync("https://localhost:2000/app.html", { width:30, height:75 });   
 
    //  if (localStorage.getItem("word-document1") === null) {
       var documentName = "empty";

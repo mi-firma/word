@@ -46,7 +46,7 @@ module.exports = async (env, options) => {
               use: "html-loader"
             },
             {
-              test: /\.(png|jpg|jpeg|gif|svg)$/,
+              test: /\.(png|ico|jpg|jpeg|gif|svg)$/,
               loader: "file-loader",
               options: {
                 name: '[path][name].[ext]',          
@@ -79,6 +79,7 @@ module.exports = async (env, options) => {
               }
             }
           ]}),
+          
           new HtmlWebpackPlugin({
             filename: "logout.html",
             template: "./src/app/logout.html",

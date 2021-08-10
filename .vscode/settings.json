@@ -6,11 +6,13 @@
     ],
     "search.exclude": {
         "**/node_modules": false
-    },
+    },    
+    "search.useIgnoreFiles": false,
     "appService.zipIgnorePattern": [
         "node_modules{,/**}",
         ".vscode{,/**}"
     ],
     "appService.defaultWebAppToDeploy": "/subscriptions/a5960c06-6270-483f-93b6-502f718c2ec4/resourceGroups/MiFirma/providers/Microsoft.Web/sites/mifirma-addin",
-    "appService.deploySubpath": "."
+    "appService.deploySubpath": ".",
+    "git.ignoreLimitWarning": true
 }

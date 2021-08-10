@@ -44695,10 +44695,10 @@ function _init() {
             /*
             mySubscription2 = fdService.firmantesListener$.subscribe(firmantes => {
               signers = firmantes;
-               if (signers[0].annotations) {
+                if (signers[0].annotations) {
                 isTemplate = true;
               }
-             });
+              });
             */
 
             chooseSigner(0);
@@ -46729,7 +46729,7 @@ function toggleAlert() {
 function logOut() {
   sessionStorage.clear(); //window.localStorage.clear();
 
-  window.location = "https://mifirma.centralus.cloudapp.azure.com/app.html";
+  window.location = "https://localhost:2000/app.html";
 }
 
 function openPersonalFolder() {

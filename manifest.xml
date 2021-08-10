@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="TaskPaneApp">
-  <Id>2534ef33-806d-408d-b036-00df9c943040</Id>
+  <Id>39d97f3a-bdb1-4424-9231-4efc790ae3be</Id>
   <Version>1.0.0.0</Version>
   <ProviderName>Mifirma</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
@@ -81,8 +81,8 @@
       </bt:LongStrings>
     </Resources>
     <WebApplicationInfo>
-      <Id>4f7b4e1d-155e-4ec0-8bd5-3d228e1c5170</Id>
-      <Resource>api://localhost:2000/4f7b4e1d-155e-4ec0-8bd5-3d228e1c5170</Resource>
+      <Id>39d97f3a-bdb1-4424-9231-4efc790ae3be</Id>
+      <Resource>api://localhost:2000/39d97f3a-bdb1-4424-9231-4efc790ae3be</Resource>
       <Scopes>
         <Scope>User.Read</Scope>
         <Scope>profile</Scope>
